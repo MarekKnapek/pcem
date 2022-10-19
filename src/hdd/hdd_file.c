@@ -3,6 +3,7 @@
 #define _GNU_SOURCE
 #include <errno.h>
 
+#include "offt.h"
 #include "ibm.h"
 #include "hdd_file.h"
 #include "minivhd/minivhd.h"
@@ -12,9 +13,9 @@ void hdd_load_ext(hdd_file_t *hdd, const char *fn, int spt, int hpc, int tracks,
         if (hdd->f == NULL) {
                 /* Try to open existing hard disk image */
                 if (read_only)
-                        hdd->f = (void *)fopen64(fn, "rb");
+                        hdd->f = (void *)fopen(fn, "rb");
                 else
-                        hdd->f = (void *)fopen64(fn, "rb+");
+                        hdd->f = (void *)fopen(fn, "rb+");
                 if (hdd->f != NULL) {
                         hdd->img_type = HDD_IMG_RAW;
                         /* Check if the file we opened is a VHD */
@@ -46,7 +47,7 @@ void hdd_load_ext(hdd_file_t *hdd, const char *fn, int spt, int hpc, int tracks,
                         if (errno == ENOENT && !read_only) {
                                 /* Failed because it does not exist,
                                    so try to create new file */
-                                hdd->f = (void *)fopen64(fn, "wb+");
+                                hdd->f = (void *)fopen(fn, "wb+");
                                 if (hdd->f == NULL) {
                                         pclog("Cannot create file '%s': %s", fn, strerror(errno));
                                         return;
@@ -98,7 +99,7 @@ int hdd_read_sectors(hdd_file_t *hdd, int offset, int nr_sectors, void *buffer) 
                         transfer_sectors = hdd->sectors - offset;
                 addr = (uint64_t)offset * 512;
 
-                fseeko64((FILE *)hdd->f, addr, SEEK_SET);
+                _fseeki64((FILE *)hdd->f, addr, SEEK_SET);
                 fread(buffer, transfer_sectors * 512, 1, (FILE *)hdd->f);
 
                 if (nr_sectors != transfer_sectors)
@@ -123,7 +124,7 @@ int hdd_write_sectors(hdd_file_t *hdd, int offset, int nr_sectors, void *buffer)
                         transfer_sectors = hdd->sectors - offset;
                 addr = (uint64_t)offset * 512;
 
-                fseeko64((FILE *)hdd->f, addr, SEEK_SET);
+                _fseeki64((FILE *)hdd->f, addr, SEEK_SET);
                 fwrite(buffer, transfer_sectors * 512, 1, (FILE *)hdd->f);
 
                 if (nr_sectors != transfer_sectors)
@@ -151,7 +152,7 @@ int hdd_format_sectors(hdd_file_t *hdd, int offset, int nr_sectors) {
                 if ((hdd->sectors - offset) < transfer_sectors)
                         transfer_sectors = hdd->sectors - offset;
                 addr = (uint64_t)offset * 512;
-                fseeko64((FILE *)hdd->f, addr, SEEK_SET);
+                _fseeki64((FILE *)hdd->f, addr, SEEK_SET);
                 for (c = 0; c < transfer_sectors; c++)
                         fwrite(zero_buffer, 512, 1, (FILE *)hdd->f);
 

@@ -9,7 +9,7 @@
                                         4 clocks - fetch mod/rm
         2 clocks - fetch opcode 1       2 clocks - execute
         2 clocks - fetch opcode 2  etc*/
-#include <unistd.h>
+/*#include <unistd.h>*/
 #include <stdio.h>
 #include "ibm.h"
 

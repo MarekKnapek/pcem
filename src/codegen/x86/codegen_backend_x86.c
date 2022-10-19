@@ -1,4 +1,4 @@
-#if defined i386 || defined __i386 || defined __i386__ || defined _X86_
+#if defined i386 || defined __i386 || defined __i386__ || defined _X86_ || defined _M_IX86
 
 #include <stddef.h>
 #include "ibm.h"
@@ -304,10 +304,11 @@ void codegen_backend_init() {
         block_write_data = NULL;
 
         cpu_state.old_fp_control = 0;
-        asm("fstcw %0\n"
+        /*asm("fstcw %0\n"
             "stmxcsr %1\n"
             : "=m"(cpu_state.old_fp_control2), "=m"(cpu_state.old_fp_control));
         cpu_state.trunc_fp_control = cpu_state.old_fp_control | 0x6000;
+        */
 }
 
 void codegen_set_rounding_mode(int mode) {

@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 #include <sys/types.h>
+#include "offt.h"
 
 #include "ibm.h"
 #include "device.h"

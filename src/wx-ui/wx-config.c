@@ -1,3 +1,5 @@
+#include "offt.h"
+
 #include "wx-utils.h"
 #include "wx-sdl2.h"
 #include "wx-joystickconfig.h"
@@ -1644,7 +1646,7 @@ static int hdnew_dlgproc(void *hdlg, int message, INT_PARAM wParam, LONG_PARAM l
 
                         if (hd_format == 0) /* Raw .img */
                         {
-                                f = fopen64(hd_new_name, "wb");
+                                f = fopen(hd_new_name, "wb");
                                 if (!f) {
                                         wx_messagebox(hdlg, "Can't open file for write", "PCem error", WX_MB_OK);
                                         return TRUE;
@@ -2038,7 +2040,7 @@ static int hd_new(void *hdlg, int drive) {
 static int hd_file(void *hdlg, int drive) {
         if (!getfile(hdlg, "Hard disc image (*.img;*.vhd)|*.img;*.vhd|All files (*.*)|*.*", "")) {
                 off64_t sz;
-                FILE *f = fopen64(openfilestring, "rb");
+                FILE *f = fopen(openfilestring, "rb");
                 if (!f) {
                         wx_messagebox(hdlg, "Can't open file for read", "PCem error", WX_MB_OK);
                         return TRUE;
@@ -2079,8 +2081,8 @@ static int hd_file(void *hdlg, int drive) {
                         adjust_vhd_geometry_for_pcem();
                         mvhd_close(vhd);
                 } else {
-                        fseeko64(f, -1, SEEK_END);
-                        sz = ftello64(f) + 1;
+                        _fseeki64(f, -1, SEEK_END);
+                        sz = _ftelli64(f) + 1;
                         fclose(f);
                         check_hd_type(hdlg, sz);
                 }

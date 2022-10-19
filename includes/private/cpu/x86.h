@@ -97,10 +97,10 @@ struct {
         MMX_REG MM[8];
 
         uint32_t old_fp_control, new_fp_control;
-#if defined i386 || defined __i386 || defined __i386__ || defined _X86_
+#if defined i386 || defined __i386 || defined __i386__ || defined _X86_ || defined(_M_IX86)
         uint16_t old_fp_control2, new_fp_control2;
 #endif
-#if defined i386 || defined __i386 || defined __i386__ || defined _X86_ || defined __amd64__
+#if defined i386 || defined __i386 || defined __i386__ || defined _X86_ || defined __amd64__ || defined(_M_IX86)
         uint32_t trunc_fp_control;
 #endif
         x86seg seg_cs, seg_ds, seg_es, seg_ss, seg_fs, seg_gs;

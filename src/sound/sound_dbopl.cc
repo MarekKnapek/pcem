@@ -2,6 +2,8 @@
 #include "dosbox/nukedopl.h"
 #include "sound_dbopl.h"
 
+#include <stdlib.h>
+
 static struct {
         DBOPL::Chip chip;
         struct opl3_chip opl3chip;
@@ -118,17 +120,23 @@ uint8_t opl_read(int nr, uint16_t addr) {
 
 void opl2_update(int nr, int16_t *buffer, int samples) {
         int c;
-        Bit32s buffer_32[samples];
+        Bit32s* buffer_32;
+
+        buffer_32 = (Bit32s*)malloc(samples * sizeof(Bit32s));
 
         opl[nr].chip.GenerateBlock2(samples, buffer_32);
 
         for (c = 0; c < samples; c++)
                 buffer[c * 2] = (int16_t)buffer_32[c];
+
+        free(buffer_32);
 }
 
 void opl3_update(int nr, int16_t *buffer, int samples) {
         int c;
-        Bit32s buffer_32[samples * 2];
+        Bit32s* buffer_32;
+
+        buffer_32 = (Bit32s*)malloc(samples * 2 * sizeof(Bit32s));
 
         if (opl[nr].opl_emu) {
                 OPL3_GenerateStream(&opl[nr].opl3chip, buffer, samples);
@@ -138,4 +146,6 @@ void opl3_update(int nr, int16_t *buffer, int samples) {
                 for (c = 0; c < samples * 2; c++)
                         buffer[c] = (int16_t)buffer_32[c];
         }
+
+        free(buffer_32);
 }

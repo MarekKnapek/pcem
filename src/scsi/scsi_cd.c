@@ -1274,7 +1274,8 @@ static int scsi_cd_command(uint8_t *cdb, void *p) {
                 alloc_length = (cdb[7] << 16) | (cdb[8] << 8) | cdb[9];
 
                 {
-                        struct __attribute__((__packed__)) {
+                        #pragma pack(push, 1)
+                        struct /*__attribute__((__packed__))*/ {
                                 uint8_t opcode;
                                 uint8_t polled;
                                 uint8_t reserved2[2];
@@ -1283,12 +1284,15 @@ static int scsi_cd_command(uint8_t *cdb, void *p) {
                                 uint16_t len;
                                 uint8_t control;
                         } * gesn_cdb;
+                        #pragma pack(pop)
 
-                        struct __attribute__((__packed__)) {
+                        #pragma pack(push, 1)
+                        struct /*__attribute__((__packed__))*/ {
                                 uint16_t len;
                                 uint8_t notification_class;
                                 uint8_t supported_events;
                         } * gesn_event_header;
+                        #pragma pack(pop)
                         unsigned int used_len;
 
                         gesn_cdb = (void *)cdb;

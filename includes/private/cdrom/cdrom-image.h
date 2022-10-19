@@ -3,11 +3,11 @@
 
 #include <stdint.h>
 
-extern char image_path[1024];
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+extern char image_path[1024];
 
 int image_open(char *fn);
 void image_reset();

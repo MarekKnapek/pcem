@@ -7,6 +7,8 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <math.h>
+#include "pi.h"
+
 #include "ibm.h"
 
 #include "device.h"

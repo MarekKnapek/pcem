@@ -14,7 +14,7 @@ drive_info_t *get_machine_info(char *, int *);
 
 int show_machine_on_start = 0;
 int confirm_on_stop_emulation = 1;
-int confirm_on_reset_machine = 1;
+extern "C" int confirm_on_reset_machine = 1;
 int show_status = 0;
 int show_speed_history = 0;
 int show_disc_activity = 1;

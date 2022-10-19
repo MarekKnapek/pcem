@@ -5,10 +5,10 @@
 extern "C" {
 #include "ibm.h"
 #include "ide.h"
-}
 
 char image_path[1024];
 static int image_changed = 0;
+}
 
 extern ATAPI image_atapi;
 

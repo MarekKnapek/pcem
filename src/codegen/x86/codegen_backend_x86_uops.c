@@ -1,4 +1,4 @@
-#if defined i386 || defined __i386 || defined __i386__ || defined _X86_
+#if defined i386 || defined __i386 || defined __i386__ || defined _X86_ || defined _M_IX86
 
 #include "ibm.h"
 #include "x86.h"

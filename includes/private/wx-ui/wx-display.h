@@ -11,10 +11,6 @@ void display_start(void *hwnd);
 void display_stop();
 void display_resize(int width, int height);
 
-#ifdef __cplusplus
-}
-#endif
-
 extern int mousecapture;
 
 extern int video_scale_mode;
@@ -34,5 +30,9 @@ extern int window_doremember;
 extern int window_doinputgrab;
 extern int window_doinputrelease;
 extern int window_dotogglefullscreen;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _WX_DISPLAY_H_ */

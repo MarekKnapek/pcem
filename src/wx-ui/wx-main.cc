@@ -12,6 +12,13 @@ int main(int argc, char **argv);
 }
 
 #if WIN32
+#ifdef main
+#undef main
+#endif
+extern "C" int main(int argc, char **argv)
+{
+    return WinMain(0, 0, 0, 0);
+}
 int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, char *, int nShowCmd)
 #else
 int main(int argc, char **argv)

@@ -38,11 +38,49 @@
 
 #endif /* !HAVE_BYTESWAP_H */
 
-static inline uint16_t bswap16(uint16_t x) { return bswap_16(x); }
+static inline uint16_t bswap16(uint16_t x)
+{
+    return
+    (
+        (uint16_t)
+        (
+            ((uint16_t)(((uint16_t)(((uint16_t)(x >> (0 * 8))) & 0xff)) << (1 * 8))) |
+            ((uint16_t)(((uint16_t)(((uint16_t)(x >> (1 * 8))) & 0xff)) << (0 * 8)))
+        )
+    );
+}
 
-static inline uint32_t bswap32(uint32_t x) { return bswap_32(x); }
+static inline uint32_t bswap32(uint32_t x)
+{
+    return
+    (
+        (uint32_t)
+        (
+            ((uint32_t)(((uint32_t)(((uint32_t)(x >> (0 * 8))) & 0xff)) << (3 * 8))) |
+            ((uint32_t)(((uint32_t)(((uint32_t)(x >> (1 * 8))) & 0xff)) << (2 * 8))) |
+            ((uint32_t)(((uint32_t)(((uint32_t)(x >> (2 * 8))) & 0xff)) << (1 * 8))) |
+            ((uint32_t)(((uint32_t)(((uint32_t)(x >> (3 * 8))) & 0xff)) << (0 * 8)))
+        )
+    );
+}
 
-static inline uint64_t bswap64(uint64_t x) { return bswap_64(x); }
+static inline uint64_t bswap64(uint64_t x)
+{
+    return
+    (
+        (uint64_t)
+        (
+            ((uint64_t)(((uint64_t)(((uint64_t)(x >> (0 * 8))) & 0xff)) << (7 * 8))) |
+            ((uint64_t)(((uint64_t)(((uint64_t)(x >> (1 * 8))) & 0xff)) << (6 * 8))) |
+            ((uint64_t)(((uint64_t)(((uint64_t)(x >> (2 * 8))) & 0xff)) << (5 * 8))) |
+            ((uint64_t)(((uint64_t)(((uint64_t)(x >> (3 * 8))) & 0xff)) << (4 * 8))) |
+            ((uint64_t)(((uint64_t)(((uint64_t)(x >> (4 * 8))) & 0xff)) << (3 * 8))) |
+            ((uint64_t)(((uint64_t)(((uint64_t)(x >> (5 * 8))) & 0xff)) << (2 * 8))) |
+            ((uint64_t)(((uint64_t)(((uint64_t)(x >> (6 * 8))) & 0xff)) << (1 * 8))) |
+            ((uint64_t)(((uint64_t)(((uint64_t)(x >> (7 * 8))) & 0xff)) << (0 * 8)))
+        )
+    );
+}
 
 static inline void bswap16s(uint16_t *s) { *s = bswap16(*s); }
 

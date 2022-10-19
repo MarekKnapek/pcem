@@ -1,4 +1,4 @@
-#ifdef __amd64__
+#if defined(__amd64__) || defined(_M_AMD64)
 
 #include "ibm.h"
 #include "codegen.h"

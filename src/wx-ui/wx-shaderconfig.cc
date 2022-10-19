@@ -12,6 +12,7 @@
 
 #include "wx-glslp-parser.h"
 #include "wx-shaderconfig.h"
+#include "wx-display.h"
 
 extern "C" {
 #include "config.h"
@@ -25,7 +26,6 @@ int confirm();
 #define IDC_CONFIG_BASE 1000
 #define ID_APPLY 500
 #define ID_RESET 501
-extern int renderer_doreset;
 
 static int shaderconfig_dlgproc(void *hdlg, int message, INT_PARAM wParam, LONG_PARAM lParam) {
         int i;

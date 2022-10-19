@@ -9,6 +9,7 @@
 #include <string.h>
 
 #include <sys/types.h>
+#include "offt.h"
 
 #include "ibm.h"
 #include "hdd.h"

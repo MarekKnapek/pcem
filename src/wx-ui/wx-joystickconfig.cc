@@ -45,7 +45,7 @@ static void rebuild_axis_button_selections(void *hdlg) {
                         for (d = 0; d < plat_joystick_state[joystick - 1].nr_axes; d++) {
                                 wx_sendmessage(h, WX_CB_ADDSTRING, 0, (LONG_PARAM)plat_joystick_state[joystick - 1].axis[d].name);
                                 if (c < AXIS_STRINGS_MAX) {
-                                        if (!strcasecmp(axis_strings[c], plat_joystick_state[joystick - 1].axis[d].name))
+                                        if (!stricmp(axis_strings[c], plat_joystick_state[joystick - 1].axis[d].name))
                                                 sel = d;
                                 }
                         }

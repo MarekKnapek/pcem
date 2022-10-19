@@ -2,7 +2,7 @@
 
 #include <windows.h>
 #include <io.h>
-#ifdef __MINGW64_VERSION_MAJOR
+#if defined(__MINGW64_VERSION_MAJOR) || defined(_MSC_VER)
 #include "ntddcdrm.h"
 #include "ntddscsi.h"
 #else
@@ -16,7 +16,7 @@
 int cdrom_drive;
 int old_cdrom_drive;
 
-#ifndef __MINGW64_VERSION_MAJOR
+#if !defined(__MINGW64_VERSION_MAJOR) && !defined(_MSC_VER)
 typedef struct _CDROM_TOC_SESSION_DATA {
         UCHAR Length[2];
         UCHAR FirstCompleteSession;

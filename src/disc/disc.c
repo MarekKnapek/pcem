@@ -74,7 +74,7 @@ void disc_load(int drive, char *fn) {
         size = ftell(f) + 1;
         fclose(f);
         while (loaders[c].ext) {
-                if (!strcasecmp(p, loaders[c].ext) && (size == loaders[c].size || loaders[c].size == -1)) {
+                if (!stricmp(p, loaders[c].ext) && (size == loaders[c].size || loaders[c].size == -1)) {
                         pclog("Loading as %s\n", p);
                         driveloaders[drive] = c;
                         loaders[c].load(drive, fn);

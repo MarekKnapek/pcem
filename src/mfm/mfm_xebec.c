@@ -8,8 +8,9 @@
 #include <stdlib.h>
 
 #include <sys/types.h>
-#include "ibm.h"
+#include "offt.h"
 
+#include "ibm.h"
 #include "device.h"
 #include "dma.h"
 #include "hdd_file.h"

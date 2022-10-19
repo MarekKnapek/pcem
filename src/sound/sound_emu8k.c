@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
+#include "pi.h"
 #include "ibm.h"
 #include "io.h"
 #include "device.h"

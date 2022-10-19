@@ -1,4 +1,4 @@
-#ifdef __amd64__
+#if defined(__amd64__) || defined(_M_AMD64)
 
 #include "ibm.h"
 #include "codegen.h"
@@ -312,8 +312,8 @@ void codegen_backend_init() {
 
         block_write_data = NULL;
 
-        asm("stmxcsr %0\n" : "=m"(cpu_state.old_fp_control));
-        cpu_state.trunc_fp_control = cpu_state.old_fp_control | 0x6000;
+        /*asm("stmxcsr %0\n" : "=m"(cpu_state.old_fp_control));
+        cpu_state.trunc_fp_control = cpu_state.old_fp_control | 0x6000;*/
 }
 
 void codegen_set_rounding_mode(int mode) { cpu_state.new_fp_control = (cpu_state.old_fp_control & ~0x6000) | (mode << 13); }

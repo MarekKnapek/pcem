@@ -3,7 +3,10 @@
 #include <wx/xrc/xmlres.h>
 #include <wx/event.h>
 #include "wx-utils.h"
+extern "C"
+{
 #include "wx-common.h"
+}
 #include "logging-internal.h"
 
 #ifdef _WIN32
@@ -24,9 +27,9 @@ int start_emulation(void *);
 int resume_emulation();
 int pause_emulation();
 int stop_emulation();
-}
 
 extern int config_override;
+}
 
 extern void InitXmlResource();
 

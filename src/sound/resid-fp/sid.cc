@@ -41,14 +41,15 @@ static cpu_x86_regs_t get_cpuid_regs(unsigned int index) {
         cpu_x86_regs_t retval;
 
 #if defined(_MSC_VER) /* MSVC assembly */
-        __asm {
+        /* TODO: https://learn.microsoft.com/en-us/cpp/intrinsics/cpuid-cpuidex?view=msvc-170 */
+        /* __asm {
 	  mov eax, [index]
 	  cpuid
 	  mov [retval.eax], eax
 	  mov [retval.ebx], ebx
 	  mov [retval.ecx], ecx
 	  mov [retval.edx], edx
-        }
+        }*/
 #else /* GNU assembly */
         asm("movl %1, %%eax; cpuid; movl %%eax, %0;" : "=m"(retval.eax) : "r"(index) : "eax", "ebx", "ecx", "edx");
         asm("movl %1, %%eax; cpuid; movl %%ebx, %0;" : "=m"(retval.ebx) : "r"(index) : "eax", "ebx", "ecx", "edx");
@@ -56,6 +57,10 @@ static cpu_x86_regs_t get_cpuid_regs(unsigned int index) {
         asm("movl %1, %%eax; cpuid; movl %%edx, %0;" : "=m"(retval.edx) : "r"(index) : "eax", "ebx", "ecx", "edx");
 #endif
 
+        retval.eax = 0;
+        retval.ebx = 0;
+        retval.ecx = 0;
+        retval.edx = 0;
         return retval;
 }
 
@@ -89,6 +94,9 @@ static int host_cpu_features(void) {
 
 #if defined(_MSC_VER) && defined(_WIN32) /* MSVC compatible assembly appropriate for 32-bit Windows */
         /* see if we are dealing with a cpu that has the cpuid instruction */
+
+        /* TODO: Return yes, I guess all CPUs that Windows is able to run on has CPUID instruction, I guess since i486 all have. */
+        /*
         __asm {
 	  pushf
 	  pop eax
@@ -102,6 +110,7 @@ static int host_cpu_features(void) {
 	  push [temp1]
 	  popf
         }
+        */
 #endif
 #if defined(__i386__) /* GNU assembly */
         asm("pushfl; popl %%eax; movl %%eax, %0; xorl $0x200000, %%eax; pushl %%eax; popfl; pushfl; popl %%eax; movl %%eax, %1; "

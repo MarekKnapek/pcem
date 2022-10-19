@@ -1,3 +1,4 @@
+#include <assert.h>
 #define USE_OPENAL
 #include <stdio.h>
 #include <string.h>
@@ -87,8 +88,10 @@ void check() {
 void inital() {
 #ifdef USE_OPENAL
         int c;
-        int16_t buf[BUFLEN * 2];
+        int16_t buf[MAXSOUNDBUFLEN * 2];
         int16_t cd_buf[CD_BUFLEN * 2];
+
+        assert(BUFLEN <= MAXSOUNDBUFLEN);
 
         //        printf("1\n");
         check();
@@ -141,9 +144,11 @@ void inital() {
 
 void givealbuffer(int32_t *buf) {
 #ifdef USE_OPENAL
-        int16_t buf16[BUFLEN * 2];
+        int16_t buf16[MAXSOUNDBUFLEN * 2];
         int processed;
         int state;
+
+        assert(BUFLEN <= MAXSOUNDBUFLEN);
 
         // return;
 

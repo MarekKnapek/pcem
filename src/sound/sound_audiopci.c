@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "pi.h"
 #include "ibm.h"
 #include "device.h"
 #include "io.h"

@@ -191,16 +191,16 @@ void initpc(int argc, char *argv[]) {
         int c;
 
         for (c = 1; c < argc; c++) {
-                if (!strcasecmp(argv[c], "--help")) {
+                if (!stricmp(argv[c], "--help")) {
                         printf("PCem command line options :\n\n");
                         printf("--config file.cfg - use given config file as initial configuration\n");
                         printf("--fullscreen      - start in fullscreen mode\n");
                         printf("--load_drive_a file.img - load drive A: with the given disc image\n");
                         printf("--load_drive_b file.img - load drive B: with the given disc image\n");
                         exit(-1);
-                } else if (!strcasecmp(argv[c], "--fullscreen")) {
+                } else if (!stricmp(argv[c], "--fullscreen")) {
                         start_in_fullscreen = 1;
-                } else if (!strcasecmp(argv[c], "--config")) {
+                } else if (!stricmp(argv[c], "--config")) {
                         char *ext;
 
                         if ((c + 1) == argc)
@@ -216,14 +216,14 @@ void initpc(int argc, char *argv[]) {
 
                         config_override = 1;
                         c++;
-                } else if (!strcasecmp(argv[c], "--load_drive_a")) {
+                } else if (!stricmp(argv[c], "--load_drive_a")) {
                         if ((c + 1) == argc)
                                 break;
 
                         strncpy(discfns[0], argv[c + 1], 256);
                         c++;
                         override_drive_a = 1;
-                } else if (!strcasecmp(argv[c], "--load_drive_b")) {
+                } else if (!stricmp(argv[c], "--load_drive_b")) {
                         if ((c + 1) == argc)
                                 break;
 

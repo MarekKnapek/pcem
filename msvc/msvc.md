@@ -1,0 +1,44 @@
+How to build pcem by MSVC (Microsoft Visual C++ / Microsoft Visual Studio).
+
+- Install Visual Studio.
+    - Go to https://visualstudio.microsoft.com and download Visual Studio. At the time of writing this, the latest version is 2022. There are multiple variants, the Community one is free of charge. Also, don't confuse Visual Studio with Visual Studio Code.
+    - In the installer don't forget to enable desktop C/C++ tools, git and cmake.
+- Install libraries pcem depends on. Fox exampe via `vcpkg` package manager.
+    - `cd c:\dev\repos` or any other directory of your choosing.
+    - `git clone https://github.com/microsoft/vcpkg.git`
+    - `cd vcpkg`
+    - `bootstrap-vcpkg.bat`
+    - x86
+        - `vcpkg.exe install sdl2:x86-windows`
+        - `vcpkg.exe install openal-soft:x86-windows`
+        - `vcpkg.exe install wxwidgets:x86-windows`
+        - `vcpkg.exe install libpcap:x86-windows`
+    - x64
+        - `vcpkg.exe install sdl2:x64-windows`
+        - `vcpkg.exe install openal-soft:x64-windows`
+        - `vcpkg.exe install wxwidgets:x64-windows`
+        - `vcpkg.exe install libpcap:x64-windows`
+- Get pcem sources.
+    - `cd c:\dev\repos` or any other directory of your choosing.
+    - `git clone https://github.com/sarah-walker-pcem/pcem.git`
+- Create Visual Studio solution.
+    - `cd pcem`
+    - `mkdir build`
+    - `cd build`
+    - x86
+        - `mkdir x86`
+        - `cmake -DCMAKE_TOOLCHAIN_FILE=c:\dev\repos\vcpkg\scripts\buildsystems\vcpkg.cmake -DUSE_NETWORKING=OFF -DUSE_PCAP_NETWORKING=OFF -DPLUGIN_ENGINE=OFF -G "Visual Studio 17 2022" -A Win32 -B x86 -S ..`
+    - x64
+        - `mkdir x64`
+        - `cmake -DCMAKE_TOOLCHAIN_FILE=c:\dev\repos\vcpkg\scripts\buildsystems\vcpkg.cmake -DUSE_NETWORKING=OFF -DUSE_PCAP_NETWORKING=OFF -DPLUGIN_ENGINE=OFF -G "Visual Studio 17 2022" -A x64 -B x64 -S ..`
+- Open Visual Studio solution.
+    - Make sure that `wxrc.exe` is on `%PATH%`.
+        - `set PATH=%PATH%;c:\dev\repos\vcpkg\installed\x86-windows\tools\wxwidgets`
+        - `"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe" c:\dev\repos\pcem\build\x86\PCem.sln`
+    - Fix all compilation bugs.
+        - I will try to upstream them into official repository. In meantime, see my branch at `https://github.com/MarekKnapek/pcem/commits/msvc`.
+    - Compile & Link.
+    - Download some ROMs from somewhere.
+        - Put them into `c:\Users\YourName\.pcem\roms`.
+    - Run.
+    - TaDa.wav, enjoy all the goodies MSVC compiler and VS IDE offer (including nice GUI-controlled debugger).
